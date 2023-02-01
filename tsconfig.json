@@ -1,6 +1,15 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
+  "@typescript-eslint/ban-types": [
+    2,
+    {
+      "types": {
+        "any": "Don't use 'any' because it is unsafe",
+      },
+      "extendDefaults": true,
+    }
+  ],
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

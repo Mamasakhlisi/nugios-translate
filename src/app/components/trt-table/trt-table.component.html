@@ -1,0 +1,126 @@
+<p-confirmPopup></p-confirmPopup>
+<div class="table">
+  <div class="header">
+    <div style="display: flex;">
+      <input
+      pInputText
+      placeholder="Enter a file name"
+      name="fileName"
+      class="file-name"
+      *ngIf="createNew"
+      (change)="onFileNameChange($event)"
+    />
+    <button class="create-btn" *ngIf="createNew" (click)="createObjects()">
+      Create
+    </button>
+    <label for="inputTag" class="file__label" *ngIf="!createNew">
+      Select Json file
+      <input
+        id="inputTag"
+        type="file"
+        (change)="onFileChanged($event)"
+        class="file__input"
+      />
+    </label>
+    <div class="checkbox" (change)="onCreateNew()">
+      <p-checkbox
+        [binary]="true"
+        inputId="binary"
+        checked="createNew"
+      ></p-checkbox>
+      <label for="binary" class="checkbox__label">Create a new json</label>
+    </div>
+  </div>
+    <div class="flex">
+      <button pButton [ngStyle]="{backgroundColor: 'var(--green-400)',borderColor: 'var(--green-400)', padding:'0.7rem'}" >Download JSON</button>
+    </div>
+  </div>
+  <div class="table__change" *ngIf="filesKeys.length">
+     <button *ngFor="let item of filesKeys" (click)="setFileDataForTable(item)" type="button" pButton class="lang__btn" [ngClass]="{'active': item === fileName }" >{{item}}</button>
+  </div>
+  <p-table
+    [value]="files"
+    [rows]="15"
+    [paginator]="true"
+    [showCurrentPageReport]="true"
+    dataKey="key"
+    editMode="row"
+    styleClass="p-datatable-gridlines p-datatable-md"
+
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+        <th style="width: 8rem; text-align: center">Edit</th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-product
+      let-editing="editing"
+      let-ri="rowIndex"
+    >
+      <tr [pEditableRow]="product" class="row">
+        <td style="width: 50%;">
+          <p-cellEditor class="td-element">
+            <ng-template pTemplate="input">
+              {{ product.key }}
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.key }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="width: 40%">
+          <p-cellEditor class="td-element">
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                required
+                value="{{ product.value }}"
+                placeholder="{{ product.value }}"
+                [formControl]="jsonName"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.value }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align: center">
+          <button
+            *ngIf="!editing"
+            pButton
+            pRipple
+            type="button"
+            pInitEditableRow
+            (click)="onRowEditInit(product.key)"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text action-btn"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            type="button"
+            pSaveEditableRow
+            (click)="onRowEditSave(product.key)"
+            icon="pi pi-check"
+            class="p-button-rounded p-button-text p-button-success p-mr-2 action-btn"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            type="button"
+            pCancelEditableRow
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text p-button-danger action-btn"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

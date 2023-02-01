@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Arimo&display=swap");
+.table {
+  padding: 10px;
+  border-radius: 3px;
+  font-family: "Arimo", sans-serif;
+}
+.table th,
+td {
+  font-family: "Arimo", sans-serif;
+}
+td .p-element {
+  width: 30%;
+}
+.p-inputtext {
+  width: 100%;
+}
+.p-button-rounded {
+  width: 3rem;
+  height: 3rem;
+}
+td {
+  padding: 0.5rem 0.5rem !important;
+}
+
+.file__input {
+  display: none;
+}
+.file__label {
+  background-color: #2563eb;
+  border: 1px solid #2563eb;
+  color: #fff;
+  border-radius: 6px;
+  padding: 13px;
+  height: 47px;
+  cursor: pointer;
+}
+.create-btn {
+  background-color: #2563eb;
+  border: 1px solid #2563eb;
+  color: #fff;
+  border-radius: 6px;
+  padding: 13px;
+  height: 47px;
+  cursor: pointer;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  font-family: "Arimo", sans-serif;
+}
+.file-name {
+  width: 15rem !important;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 3px;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.checkbox__label {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.lang__btn {
+  background-color: #fff;
+  color: #282828;
+  padding: 0.6rem;
+  font-size: 12px;
+  margin-right: 0.4rem;
+  font-family: "Arimo", sans-serif;
+}
+.lang__btn.active {
+  background-color: #2563eb;
+  color: #fff;
+}
+.table__change {
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border-radius: 3px;
+  padding: 0.4rem 1rem;
+}
+.table__change button {
+  font-family: "Arimo", sans-serif;
+}
+td {
+  padding: 0.2rem !important;
+}
+td .td-element {
+  padding-left: 0.5rem !important;
+}
+.row {
+  transform: 300ms;
+}
+.row:hover {
+  background-color: #f2f2f2;
+}
+.td-element .p-inputtext {
+  width: 45% !important;
+  height: 40px !important;
+}
+.action-btn {
+  width: 40px !important;
+  height: 40px !important;
+}
