@@ -13,23 +13,29 @@ import { ISortedDataWithTable } from './note.interfaces';
   name: 'note',
   defaults: {
     files: {},
+    activeFile: '',
   },
 })
 @Injectable()
 export class NoteState {
   constructor() {}
 
+  // Actions
+
   @Action(EditRow)
   EditRow(ctx: StateContext<NoteStateModel>, { key, value, lang }: EditRow) {
     const state = ctx.getState();
     const changedFile = state.files[lang].map((item) => {
-      return (item.value = item.key === key ? {key: item.key, value: value} : {key:item.key,value:item.value});
+      return (item.value =
+        item.key === key
+          ? { key: item.key, value: value }
+          : { key: item.key, value: item.value });
     });
     ctx.setState({
       ...state,
-      files: {...state.files,[lang]: changedFile}
-    })
-    console.log(state.files, changedFile);
+      files: { ...state.files, [lang]: changedFile },
+      activeFile: lang,
+    });
   }
 
   @Action(SetCreatedJsonData)
@@ -38,14 +44,22 @@ export class NoteState {
     { lang }: SetCreatedJsonData
   ) {
     const state = ctx.getState();
-    ctx.setState({ ...state, files: { ...state.files, [lang]: [] } });
+    ctx.setState({
+      ...state,
+      files: { ...state.files, [lang]: [] },
+      activeFile: lang,
+    });
     ctx.dispatch(new GenerateObjects());
   }
 
   @Action(SetJsonData)
   SetJsonData(ctx: StateContext<NoteStateModel>, { data, lang }: SetJsonData) {
     const state = ctx.getState();
-    ctx.setState({ ...state, files: { ...state.files, [lang]: data } });
+    ctx.setState({
+      ...state,
+      files: { ...state.files, [lang]: data },
+      activeFile: lang,
+    });
     ctx.dispatch(new GenerateObjects());
   }
 
@@ -57,10 +71,13 @@ export class NoteState {
       const newdData: any = [];
 
       props.forEach((prop) => {
-        //ვიღებთ ყველა პროპს გარდა მიმდინარე პროპს
-        const zoro = props.filter((x) => x !== prop);
+        // all file name
+        const fileNames = props.filter((x) => x !== prop);
         // ვიღებთ ყველა პროპის მნიშვნელობებს გარდა მიმდინარე პროპს
-        const values = zoro.reduce((a: string[], c) => a.concat(files[c]), []);
+        const values = fileNames.reduce(
+          (a: string[], c) => a.concat(files[c]),
+          []
+        );
         //  ვფილტრავთ ყველა მნიშვნელობა რომელიც არ არის მიმდინარე პროპის მნიშვნელობებში და ვამატებთ მიმდინარე პროპის მნიშვნელობებს
         const newValue: ISortedDataWithTable[] = values
           .filter((x: any) => {
@@ -83,9 +100,15 @@ export class NoteState {
       files: transformFiles(state.files),
     });
   }
+  // Selectors
 
   @Selector([NoteState])
   static files_data(state: NoteStateModel): NoteStateModel['files'] {
     return state.files;
+  }
+
+  @Selector([NoteState])
+  static active_file(state: NoteStateModel): NoteStateModel['activeFile'] {
+    return state.activeFile;
   }
 }
