@@ -1,6 +1,5 @@
-<p-confirmPopup></p-confirmPopup>
 <div class="table">
-  <div class="header">
+  <div class="header" [class.dark_mode]="darkMode">
     <div style="display: flex;">
       <input
       pInputText
@@ -32,10 +31,9 @@
     </div>
   </div>
     <div class="flex">
-      <button pButton [ngStyle]="{backgroundColor: 'var(--green-400)',borderColor: 'var(--green-400)', padding:'0.7rem'}" >Download JSON</button>
-    </div>
+      <app-trt-data-download [fileName]="fileName"></app-trt-data-download>    </div>
   </div>
-  <div class="table__change" *ngIf="filesKeys.length">
+  <div class="table__change" *ngIf="filesKeys.length" [class.dark_mode]="darkMode">
      <button *ngFor="let item of filesKeys" (click)="setFileDataForTable(item)" type="button" pButton class="lang__btn" [ngClass]="{'active': item === fileName }" >{{item}}</button>
   </div>
   <p-table
@@ -50,9 +48,9 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Property</th>
-        <th>Value</th>
-        <th style="width: 8rem; text-align: center">Edit</th>
+        <th [class.dark_mode]="darkMode">Property</th>
+        <th [class.dark_mode]="darkMode">Value</th>
+        <th [class.dark_mode]="darkMode" style="width: 8rem; text-align: center">Edit</th>
       </tr>
     </ng-template>
     <ng-template
@@ -61,8 +59,8 @@
       let-editing="editing"
       let-ri="rowIndex"
     >
-      <tr [pEditableRow]="product" class="row">
-        <td style="width: 50%;">
+      <tr [pEditableRow]="product" class="row" [class.dark_mode_hover]="darkMode">
+        <td style="width: 50%;" [class.dark_mode]="darkMode">
           <p-cellEditor class="td-element">
             <ng-template pTemplate="input">
               {{ product.key }}
@@ -72,7 +70,7 @@
             </ng-template>
           </p-cellEditor>
         </td>
-        <td style="width: 40%">
+        <td style="width: 40%" [class.dark_mode]="darkMode">
           <p-cellEditor class="td-element">
             <ng-template pTemplate="input">
               <input
@@ -89,7 +87,7 @@
             </ng-template>
           </p-cellEditor>
         </td>
-        <td style="text-align: center">
+        <td style="text-align: center" [class.dark_mode]="darkMode">
           <button
             *ngIf="!editing"
             pButton

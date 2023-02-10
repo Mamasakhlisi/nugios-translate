@@ -14,10 +14,9 @@ import {ConfirmationService} from 'primeng/api';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {FileUploadModule} from 'primeng/fileupload';
 import {CheckboxModule} from 'primeng/checkbox';
-
 import { AppComponent } from './app.component';
 import { TrtTableComponent } from './components/trt-table/trt-table.component';
-import { TrtTableCreateItemComponent } from './components/trt-table-create-item/trt-table-create-item.component';
+import { TrtDataDownloadComponent } from './components/trt-table-create-item/trt-data-download.component';
 import {NgxsModule} from '@ngxs/store'
 import { NoteState } from './store/note.state';
 
@@ -25,7 +24,7 @@ import { NoteState } from './store/note.state';
   declarations: [
     AppComponent,
     TrtTableComponent,
-    TrtTableCreateItemComponent
+    TrtDataDownloadComponent
   ],
   imports: [
     BrowserModule,

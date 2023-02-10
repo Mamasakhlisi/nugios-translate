@@ -17,3 +17,4 @@ export class EditRow {
 export class GenerateObjects {
   static readonly type = '[NOTE] Generate json data';
 }
+

@@ -4,7 +4,11 @@
   border-radius: 3px;
   font-family: "Arimo", sans-serif;
 }
+tr th {
+  padding: 1rem 0.6rem !important;
+}
 .table th,
+
 td {
   font-family: "Arimo", sans-serif;
 }
@@ -26,8 +30,8 @@ td {
   display: none;
 }
 .file__label {
-  background-color: #2563eb;
-  border: 1px solid #2563eb;
+  background-color: #3D3EC4;
+  border: 1px solid #3D3EC4;
   color: #fff;
   border-radius: 6px;
   padding: 13px;
@@ -35,8 +39,8 @@ td {
   cursor: pointer;
 }
 .create-btn {
-  background-color: #2563eb;
-  border: 1px solid #2563eb;
+  background-color: #3D3EC4;
+  border: 1px solid #3D3EC4;
   color: #fff;
   border-radius: 6px;
   padding: 13px;
@@ -79,8 +83,9 @@ td {
   font-family: "Arimo", sans-serif;
 }
 .lang__btn.active {
-  background-color: #2563eb;
+  background-color: #3D3EC4;
   color: #fff;
+  border-color: #3D3EC4;
 }
 .table__change {
   margin-bottom: 10px;
@@ -110,4 +115,14 @@ td .td-element {
 .action-btn {
   width: 40px !important;
   height: 40px !important;
+}
+
+.dark_mode {
+  background-color: #141E2F !important;
+  border: 1px solid #3a3a3a !important;
+  color:#ccc !important;
+}
+
+.dark_mode_hover:hover {
+  background-color:red !important;
 }

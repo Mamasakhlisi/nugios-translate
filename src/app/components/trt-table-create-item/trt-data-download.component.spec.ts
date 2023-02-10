@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrtTableCreateItemComponent } from './trt-table-create-item.component';
+import { TrtDataDownloadComponent } from './trt-data-download.component';
 
 describe('TrtTableCreateItemComponent', () => {
-  let component: TrtTableCreateItemComponent;
-  let fixture: ComponentFixture<TrtTableCreateItemComponent>;
+  let component: TrtDataDownloadComponent;
+  let fixture: ComponentFixture<TrtDataDownloadComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrtTableCreateItemComponent ]
+      declarations: [ TrtDataDownloadComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TrtTableCreateItemComponent);
+    fixture = TestBed.createComponent(TrtDataDownloadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

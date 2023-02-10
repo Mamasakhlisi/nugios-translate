@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-
 import { SetJsonData } from '../store/note.actions';
 import {
   IObjUnknownProperties,
@@ -11,14 +10,16 @@ import {
   providedIn: 'root',
 })
 export class TableDataService {
-  selectedFile: any;
+  selectedFile?: File;
   sortedDataWithTable: ISortedDataWithTable[] = [];
   constructor(private store: Store) {
-    this.selectedFile = {};
   }
 
   setSelectedFile(event: Event, name: string, createNew: boolean) {
     this.selectedFile = (event.target as HTMLInputElement).files?.[0];
+    if (!this.selectedFile) {
+      return;
+    }
     const fileName = this.selectedFile.name.split('.')[0];
     const fileReader = new FileReader();
     fileReader.readAsText(this.selectedFile, 'UTF-8');

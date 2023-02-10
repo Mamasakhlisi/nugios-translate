@@ -1,18 +1,16 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild,Input } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { TableDataService } from 'src/app/services/table-data.service';
 import {
   EditRow,
-  GenerateObjects,
   SetCreatedJsonData,
 } from 'src/app/store/note.actions';
 import {
   IObjProperties,
   ISortedDataWithTable,
 } from 'src/app/store/note.interfaces';
-import { dataModel } from 'src/app/store/note.model';
 import { NoteState } from 'src/app/store/note.state';
 import { Table } from 'primeng/table';
 
@@ -22,26 +20,32 @@ import { Table } from 'primeng/table';
   styleUrls: ['./trt-table.component.css'],
 })
 export class TrtTableComponent implements OnInit, OnDestroy {
+  @Input() darkMode: boolean = true;
   @Select(NoteState.files_data) files$?: Observable<IObjProperties>;
-  @ViewChild(Table) private dataTable: any;
+  @Select(NoteState.active_file) activeFile$?: Observable<string>;
+  @ViewChild(Table) private dataTable!: Table;
+
   jsonName = new FormControl('');
-  editRow: string = '';
   files: ISortedDataWithTable[] = [];
   filesKeys: string[] = [];
   fileName: string = '';
   createNew: boolean = false;
+  
   private subs: Subscription[] = [];
 
-  constructor(private store: Store, private tableService: TableDataService) {
-    if (this.files$) {
-      const sub1 = this.files$.subscribe((data) => {
-        return (this.files = data[this.fileName]);
-      });
-      this.subs.push(sub1);
-    }
-  }
+  constructor(private store: Store, private tableService: TableDataService) {}
 
   ngOnInit(): void {
+    // Get data with filename
+    if (this.activeFile$) {
+      const sub1 = this.activeFile$?.subscribe((x) =>
+        this.files$?.subscribe((data) => {
+          return (this.files = data[this.fileName]);
+        })
+      );
+      this.subs.push(sub1);
+    }
+
     this.getFileKeys();
   }
 
@@ -50,6 +54,8 @@ export class TrtTableComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
   }
+
+  // Get stored files object keys {ka: [],....} = ka ...
   getFileKeys() {
     if (this.files$) {
       const sub3 = this.files$?.subscribe(
@@ -58,6 +64,8 @@ export class TrtTableComponent implements OnInit, OnDestroy {
       this.subs.push(sub3);
     }
   }
+
+  // Files tab Changer
   setFileDataForTable(name: string) {
     this.fileName = name;
     if (this.files$) {
@@ -67,28 +75,48 @@ export class TrtTableComponent implements OnInit, OnDestroy {
       this.subs.push(sub2);
     }
   }
+
+  // Checkbox of create file
   onCreateNew() {
     this.createNew = !this.createNew;
   }
+
+  // row edit
   public onRowEditInit(data: string) {
     this.dataTable.editingRowKeys = { [data]: true };
   }
 
+  // row save
   onRowEditSave(key: string) {
-    this.store.dispatch(new EditRow(key,this.jsonName.value,this.fileName))
-    this.jsonName.setValue('')
+    this.store.dispatch(new EditRow(key, this.jsonName.value, this.fileName));
+    this.jsonName.setValue('');
   }
 
+  // file value changer
   onFileNameChange(event: Event) {
     this.fileName = (event.target as HTMLInputElement).value;
+    (event.target as HTMLInputElement).value = ''
   }
-  generateObjects() {
-    this.store.dispatch(new GenerateObjects());
-  }
+
+  // Create new empty file submit
   createObjects() {
     this.store.dispatch(new SetCreatedJsonData(this.fileName));
+    const subActiveFilee = this.activeFile$?.subscribe((x) => {
+      this.fileName = x;
+    });
+    if (subActiveFilee) {
+      this.subs.push(subActiveFilee);
+    }
   }
+
+  // Json select handler
   onFileChanged(event: Event) {
     this.tableService.setSelectedFile(event, this.fileName, this.createNew);
+    const subActiveFile = this.activeFile$?.subscribe(
+      (x) => (this.fileName = x)
+    );
+    if (subActiveFile) {
+      this.subs.push(subActiveFile);
+    }
   }
 }
