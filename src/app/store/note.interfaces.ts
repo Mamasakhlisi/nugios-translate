@@ -19,3 +19,6 @@ export interface IObjProperties {
 export interface IObjUnknownProperties {
     [key: string]: any;
 }
+
+export interface LoadedFile
+{[key: string]:ISortedDataWithTable[]}

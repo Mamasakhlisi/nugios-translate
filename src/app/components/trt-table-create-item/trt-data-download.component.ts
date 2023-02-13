@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {
   IObjProperties,
   IObjUnknownProperties,
+  ISortedDataWithTable,
 } from 'src/app/store/note.interfaces';
 import { NoteState } from 'src/app/store/note.state';
 
@@ -40,7 +41,7 @@ export class TrtDataDownloadComponent {
           JSON.stringify(
             unflattenObject(
               x.note.files[this.fileName].reduce(
-                (a: IObjProperties, v: any) => ({ ...a, [v.key]: v.value }),
+                (a: IObjProperties, v: ISortedDataWithTable) => ({ ...a, [v.key as keyof ISortedDataWithTable]: v.value }),
                 {}
               )
             )

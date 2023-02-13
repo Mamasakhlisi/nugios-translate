@@ -7,7 +7,8 @@ import {
   EditRow,
 } from './note.actions';
 import { NoteStateModel } from './note.model';
-import { ISortedDataWithTable } from './note.interfaces';
+import { ISortedDataWithTable, LoadedFile } from './note.interfaces';
+import { IsActiveMatchOptions } from '@angular/router';
 
 @State<NoteStateModel>({
   name: 'note',
@@ -25,17 +26,24 @@ export class NoteState {
   @Action(EditRow)
   EditRow(ctx: StateContext<NoteStateModel>, { key, value, lang }: EditRow) {
     const state = ctx.getState();
-    const changedFile = state.files[lang].map((item) => {
-      return (item.value =
-        item.key === key
-          ? { key: item.key, value: value }
-          : { key: item.key, value: item.value });
-    });
+    const found = state.files[lang].find(it=>it.key === key);
+    if(found){
+      found.value = value;
+    }
     ctx.setState({
       ...state,
-      files: { ...state.files, [lang]: changedFile },
+      files: { ...state.files},
       activeFile: lang,
     });
+    
+    // const changedFile = state.files[lang].map((item) => {
+    //   console.log(item)
+    //   return (
+    //     item.key === key
+    //       ? { key: item.key, value: value }
+    //       : { key: item.key, value: item.value });
+    // });
+    
   }
 
   @Action(SetCreatedJsonData)
@@ -62,31 +70,31 @@ export class NoteState {
     });
     ctx.dispatch(new GenerateObjects());
   }
-
+  
   @Action(GenerateObjects)
   GenerateObjects(ctx: StateContext<NoteStateModel>) {
     const state = ctx.getState();
-    const transformFiles = (files: any) => {
+    const transformFiles = (files: LoadedFile) => {
       const props = Object.keys(files);
-      const newdData: any = [];
-
-      props.forEach((prop) => {
+      const newdData: ISortedDataWithTable[][] = [];
+      
+      props.forEach((prop: string) => {
         // all file name
         const fileNames = props.filter((x) => x !== prop);
         // ვიღებთ ყველა პროპის მნიშვნელობებს გარდა მიმდინარე პროპს
         const values = fileNames.reduce(
-          (a: string[], c) => a.concat(files[c]),
+          (a: ISortedDataWithTable[], c) => a.concat(files[c as keyof LoadedFile]),
           []
         );
         //  ვფილტრავთ ყველა მნიშვნელობა რომელიც არ არის მიმდინარე პროპის მნიშვნელობებში და ვამატებთ მიმდინარე პროპის მნიშვნელობებს
         const newValue: ISortedDataWithTable[] = values
-          .filter((x: any) => {
-            return !files[prop].some((y: any) => y.key === x.key);
+          .filter((x: ISortedDataWithTable) => {
+            return !files[prop as keyof LoadedFile].some((y: ISortedDataWithTable) => y.key === x.key);
           })
-          .map((x: any) => {
-            return { ...x, value: '' };
+          .map((x: ISortedDataWithTable) => {
+            return { ...x, value: '' } as ISortedDataWithTable;
           })
-          .concat(files[prop]);
+          .concat(files[prop as keyof LoadedFile]);
         const result: ISortedDataWithTable[] = newValue.filter(
           (thing, index, self) =>
             index === self.findIndex((t) => t.key === thing.key)
