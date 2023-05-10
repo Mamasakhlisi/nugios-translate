@@ -1,51 +1,31 @@
 <div class="table">
   <div class="header" [class.dark_mode]="darkMode">
     <div style="display: flex;">
-      <input
-      pInputText
-      placeholder="Enter a file name"
-      name="fileName"
-      class="file-name"
-      *ngIf="createNew"
-      (change)="onFileNameChange($event)"
-    />
-    <button class="create-btn" *ngIf="createNew" (click)="createObjects()">
-      Create
-    </button>
-    <label for="inputTag" class="file__label" *ngIf="!createNew">
-      Select Json file
-      <input
-        id="inputTag"
-        type="file"
-        (change)="onFileChanged($event)"
-        class="file__input"
-      />
-    </label>
-    <div class="checkbox" (change)="onCreateNew()">
-      <p-checkbox
-        [binary]="true"
-        inputId="binary"
-        checked="createNew"
-      ></p-checkbox>
-      <label for="binary" class="checkbox__label">Create a new json</label>
+      <input pInputText placeholder="Enter a file name" name="fileName" class="file-name" *ngIf="createNew"
+        (change)="onFileNameChange($event)" />
+      <button class="create-btn" *ngIf="createNew" (click)="createObjects()">
+        Create
+      </button>
+      <label for="inputTag" class="file__label" *ngIf="!createNew">
+        Select Json file
+        <input id="inputTag" type="file" (change)="onFileChanged($event)" class="file__input" />
+      </label>
+      <div class="checkbox">
+        <label for="binary" class="checkbox__label">
+          <p-checkbox [binary]="true" inputId="binary" checked="createNew" (onChange)="onCreateNew()"></p-checkbox>
+          Create a new json</label>
+      </div>
+    </div>
+    <div class="flex">
+      <app-trt-data-download [fileName]="fileName"></app-trt-data-download>
     </div>
   </div>
-    <div class="flex">
-      <app-trt-data-download [fileName]="fileName"></app-trt-data-download>    </div>
-  </div>
   <div class="table__change" *ngIf="filesKeys.length" [class.dark_mode]="darkMode">
-     <button *ngFor="let item of filesKeys" (click)="setFileDataForTable(item)" type="button" pButton class="lang__btn" [ngClass]="{'active': item === fileName }" >{{item}}</button>
+    <button *ngFor="let item of filesKeys" (click)="setFileDataForTable(item)" type="button" pButton class="lang__btn"
+      [ngClass]="{'active': item === fileName }">{{item}}</button>
   </div>
-  <p-table
-    [value]="files"
-    [rows]="15"
-    [paginator]="true"
-    [showCurrentPageReport]="true"
-    dataKey="key"
-    editMode="row"
-    styleClass="p-datatable-gridlines p-datatable-md"
-
-  >
+  <p-table [value]="files" [rows]="15" [paginator]="true" [showCurrentPageReport]="true" dataKey="key" editMode="row"
+    styleClass="p-datatable-gridlines p-datatable-md">
     <ng-template pTemplate="header">
       <tr>
         <th [class.dark_mode]="darkMode">Property</th>
@@ -53,12 +33,7 @@
         <th [class.dark_mode]="darkMode" style="width: 8rem; text-align: center">Edit</th>
       </tr>
     </ng-template>
-    <ng-template
-      pTemplate="body"
-      let-product
-      let-editing="editing"
-      let-ri="rowIndex"
-    >
+    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
       <tr [pEditableRow]="product" class="row" [class.dark_mode_hover]="darkMode">
         <td style="width: 50%;" [class.dark_mode]="darkMode">
           <p-cellEditor class="td-element">
@@ -73,14 +48,8 @@
         <td style="width: 40%" [class.dark_mode]="darkMode">
           <p-cellEditor class="td-element">
             <ng-template pTemplate="input">
-              <input
-                pInputText
-                type="text"
-                required
-                value="{{ product.value }}"
-                placeholder="{{ product.value }}"
-                [formControl]="jsonName"
-              />
+              <input pInputText type="text" required value="{{ product.value }}" placeholder="{{ product.value }}"
+                [formControl]="jsonName" />
             </ng-template>
             <ng-template pTemplate="output">
               {{ product.value }}
@@ -88,35 +57,12 @@
           </p-cellEditor>
         </td>
         <td style="text-align: center" [class.dark_mode]="darkMode">
-          <button
-            *ngIf="!editing"
-            pButton
-            pRipple
-            type="button"
-            pInitEditableRow
-            (click)="onRowEditInit(product.key)"
-            icon="pi pi-pencil"
-            class="p-button-rounded p-button-text action-btn"
-          ></button>
-          <button
-            *ngIf="editing"
-            pButton
-            pRipple
-            type="button"
-            pSaveEditableRow
-            (click)="onRowEditSave(product.key)"
-            icon="pi pi-check"
-            class="p-button-rounded p-button-text p-button-success p-mr-2 action-btn"
-          ></button>
-          <button
-            *ngIf="editing"
-            pButton
-            pRipple
-            type="button"
-            pCancelEditableRow
-            icon="pi pi-times"
-            class="p-button-rounded p-button-text p-button-danger action-btn"
-          ></button>
+          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow (click)="onRowEditInit(product.key)"
+            icon="pi pi-pencil" class="p-button-rounded p-button-text action-btn"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow (click)="onRowEditSave(product.key)"
+            icon="pi pi-check" class="p-button-rounded p-button-text p-button-success p-mr-2 action-btn"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+            class="p-button-rounded p-button-text p-button-danger action-btn"></button>
         </td>
       </tr>
     </ng-template>

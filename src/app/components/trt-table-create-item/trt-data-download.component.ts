@@ -3,7 +3,6 @@ import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import {
   IObjProperties,
-  IObjUnknownProperties,
   ISortedDataWithTable,
 } from 'src/app/store/note.interfaces';
 import { NoteState } from 'src/app/store/note.state';
@@ -16,11 +15,11 @@ import { NoteState } from 'src/app/store/note.state';
 export class TrtDataDownloadComponent {
   @Input() fileName: string = '';
   @Select(NoteState.files_data) files$?: Observable<IObjProperties>;
-  constructor( private store: Store) {}
+  constructor(private store: Store) {}
 
   downloadJson() {
-    const unflattenObject = (obj: IObjUnknownProperties) =>
-      Object.keys(obj).reduce((res, k) => {
+    const unflattenObject = (obj: any) =>
+      Object.keys(obj).reduce((res, k: string) => {
         k.split('.').reduce(
           (acc: { [key: string]: string }, e: string, i: number, keys) =>
             acc[e] ||
@@ -41,7 +40,10 @@ export class TrtDataDownloadComponent {
           JSON.stringify(
             unflattenObject(
               x.note.files[this.fileName].reduce(
-                (a: IObjProperties, v: ISortedDataWithTable) => ({ ...a, [v.key as keyof ISortedDataWithTable]: v.value }),
+                (a: IObjProperties, v: ISortedDataWithTable) => ({
+                  ...a,
+                  [v.key as keyof ISortedDataWithTable]: v.value,
+                }),
                 {}
               )
             )
