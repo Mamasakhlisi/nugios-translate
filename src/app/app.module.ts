@@ -19,12 +19,14 @@ import { TrtTableComponent } from './components/trt-table/trt-table.component';
 import { TrtDataDownloadComponent } from './components/trt-table-create-item/trt-data-download.component';
 import {NgxsModule} from '@ngxs/store'
 import { NoteState } from './store/note.state';
+import { AutofocusDirective } from './autofocus.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     TrtTableComponent,
-    TrtDataDownloadComponent
+    TrtDataDownloadComponent,
+    AutofocusDirective
   ],
   imports: [
     BrowserModule,

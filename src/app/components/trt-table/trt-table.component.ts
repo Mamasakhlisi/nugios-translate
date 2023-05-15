@@ -1,12 +1,9 @@
-import { Component, OnInit, OnDestroy, ViewChild,Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { TableDataService } from 'src/app/services/table-data.service';
-import {
-  EditRow,
-  SetCreatedJsonData,
-} from 'src/app/store/note.actions';
+import { EditRow, SetCreatedJsonData } from 'src/app/store/note.actions';
 import {
   IObjProperties,
   ISortedDataWithTable,
@@ -30,7 +27,7 @@ export class TrtTableComponent implements OnInit, OnDestroy {
   filesKeys: string[] = [];
   fileName: string = '';
   createNew: boolean = false;
-  
+
   private subs: Subscription[] = [];
 
   constructor(private store: Store, private tableService: TableDataService) {}
@@ -89,13 +86,17 @@ export class TrtTableComponent implements OnInit, OnDestroy {
   // row save
   onRowEditSave(key: string) {
     this.store.dispatch(new EditRow(key, this.jsonName.value, this.fileName));
-    this.jsonName.setValue('');
+    this.jsonName.reset();
   }
 
+  // row edit cancel
+  onRowEditCancel() {
+    this.jsonName.reset();
+  }
   // file value changer
   onFileNameChange(event: Event) {
     this.fileName = (event.target as HTMLInputElement).value;
-    (event.target as HTMLInputElement).value = ''
+    (event.target as HTMLInputElement).value = '';
   }
 
   // Create new empty file submit
