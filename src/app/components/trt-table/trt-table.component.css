@@ -8,7 +8,6 @@ tr th {
   padding: 1rem 0.6rem !important;
 }
 .table th,
-
 td {
   font-family: "Arimo", sans-serif;
 }
@@ -30,8 +29,8 @@ td {
   display: none;
 }
 .file__label {
-  background-color: #3D3EC4;
-  border: 1px solid #3D3EC4;
+  background-color: #3d3ec4;
+  border: 1px solid #3d3ec4;
   color: #fff;
   border-radius: 6px;
   padding: 13px;
@@ -39,8 +38,8 @@ td {
   cursor: pointer;
 }
 .create-btn {
-  background-color: #3D3EC4;
-  border: 1px solid #3D3EC4;
+  background-color: #3d3ec4;
+  border: 1px solid #3d3ec4;
   color: #fff;
   border-radius: 6px;
   padding: 13px;
@@ -83,9 +82,9 @@ td {
   font-family: "Arimo", sans-serif;
 }
 .lang__btn.active {
-  background-color: #3D3EC4;
+  background-color: #3d3ec4;
   color: #fff;
-  border-color: #3D3EC4;
+  border-color: #3d3ec4;
 }
 .table__change {
   margin-bottom: 10px;
@@ -118,11 +117,21 @@ td .td-element {
 }
 
 .dark_mode {
-  background-color: #141E2F !important;
+  background-color: #141e2f !important;
   border: 1px solid #3a3a3a !important;
-  color:#ccc !important;
+  color: #ccc !important;
 }
 
 .dark_mode_hover:hover {
-  background-color:red !important;
+  background-color: red !important;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter__table {
+  width: 230px;
 }

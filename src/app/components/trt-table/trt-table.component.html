@@ -17,6 +17,9 @@
       </div>
     </div>
     <div class="flex">
+      <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+        placeholder="Filter with property or value" class="filter__table" />
+
       <app-trt-data-download [fileName]="fileName"></app-trt-data-download>
     </div>
   </div>
@@ -24,8 +27,9 @@
     <button *ngFor="let item of filesKeys" (click)="setFileDataForTable(item)" type="button" pButton class="lang__btn"
       [ngClass]="{'active': item === fileName }">{{item}}</button>
   </div>
-  <p-table [value]="files" [rows]="15" [paginator]="true" [showCurrentPageReport]="true" dataKey="key" editMode="row"
-    styleClass="p-datatable-gridlines p-datatable-md">
+  <p-table #table selectionMode="single" [value]="files" [rows]="15" [paginator]="true" [showCurrentPageReport]="true"
+    dataKey="key" editMode="row" styleClass="p-datatable-gridlines p-datatable-md"
+    [globalFilterFields]="['key', 'value']">
     <ng-template pTemplate="header">
       <tr>
         <th [class.dark_mode]="darkMode">Property</th>

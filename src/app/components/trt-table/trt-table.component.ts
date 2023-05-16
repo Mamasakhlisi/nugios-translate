@@ -21,7 +21,7 @@ export class TrtTableComponent implements OnInit, OnDestroy {
   @Select(NoteState.files_data) files$?: Observable<IObjProperties>;
   @Select(NoteState.active_file) activeFile$?: Observable<string>;
   @ViewChild(Table) private dataTable!: Table;
-
+  @ViewChild('table') table: Table | undefined;
   jsonName = new FormControl('');
   files: ISortedDataWithTable[] = [];
   filesKeys: string[] = [];
@@ -52,6 +52,12 @@ export class TrtTableComponent implements OnInit, OnDestroy {
     });
   }
 
+  applyFilterGlobal($event: Event, stringVal: string) {
+    this.table!.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      stringVal
+    );
+  }
   // Get stored files object keys {ka: [],....} = ka ...
   getFileKeys() {
     if (this.files$) {
@@ -119,5 +125,9 @@ export class TrtTableComponent implements OnInit, OnDestroy {
     if (subActiveFile) {
       this.subs.push(subActiveFile);
     }
+  }
+
+  clear(table: Table) {
+    table.clear();
   }
 }

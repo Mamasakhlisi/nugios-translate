@@ -1,39 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Arimo&display=swap");
 
 .field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
 }
 .block {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 .open__dialog {
-    margin-bottom: 1rem;
-    padding: 9px !important;
-    font-size: 15px !important;
-    border-radius: 3px !important;
-    font-family: 'Arimo', sans-serif;
-    width: 127px;
+  margin-bottom: 1rem;
+  padding: 9px !important;
+  font-size: 15px !important;
+  border-radius: 3px !important;
+  font-family: "Arimo", sans-serif;
+  width: 127px;
 }
 
 .create__btn {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 .lang__btn {
-    background-color: #fff;
-    color:#282828;
-    padding: 0.6rem;
-    font-size: 12px;
-    margin-right: 0.4rem;
-    font-family: 'Arimo', sans-serif;
+  background-color: #fff;
+  color: #282828;
+  padding: 0.6rem;
+  font-size: 12px;
+  margin-right: 0.4rem;
+  font-family: "Arimo", sans-serif;
 }
 .lang__btn.active {
-    background-color: #2563EB;
-    color:#fff;
+  background-color: #2563eb;
+  color: #fff;
 }
 .flex {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#downloadAnchorElem {
+  width: 160px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
 }
