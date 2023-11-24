@@ -17,7 +17,7 @@ import { Table } from 'primeng/table';
   styleUrls: ['./trt-table.component.css'],
 })
 export class TrtTableComponent implements OnInit, OnDestroy {
-  @Input() darkMode: boolean = true;
+  @Input() darkMode = true;
   @Select(NoteState.files_data) files$?: Observable<IObjProperties>;
   @Select(NoteState.active_file) activeFile$?: Observable<string>;
   @ViewChild(Table) private dataTable!: Table;
@@ -25,8 +25,8 @@ export class TrtTableComponent implements OnInit, OnDestroy {
   jsonName = new FormControl('');
   files: ISortedDataWithTable[] = [];
   filesKeys: string[] = [];
-  fileName: string = '';
-  createNew: boolean = false;
+  fileName = '';
+  createNew = false;
 
   private subs: Subscription[] = [];
 
@@ -35,7 +35,7 @@ export class TrtTableComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Get data with filename
     if (this.activeFile$) {
-      const sub1 = this.activeFile$?.subscribe((x) =>
+      const sub1 = this.activeFile$?.subscribe(() =>
         this.files$?.subscribe((data) => {
           return (this.files = data[this.fileName]);
         })
@@ -53,7 +53,7 @@ export class TrtTableComponent implements OnInit, OnDestroy {
   }
 
   applyFilterGlobal($event: Event, stringVal: string) {
-    this.table!.filterGlobal(
+    this.table?.filterGlobal(
       ($event.target as HTMLInputElement).value,
       stringVal
     );

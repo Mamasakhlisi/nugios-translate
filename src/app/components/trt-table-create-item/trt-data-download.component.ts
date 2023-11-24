@@ -20,6 +20,8 @@ export class TrtDataDownloadComponent {
   downloadJson() {
     const unflattenObject = (obj: any) =>
       Object.keys(obj).reduce((res, k: string) => {
+        console.log(obj)
+
         k.split('.').reduce(
           (acc: { [key: string]: string }, e: string, i: number, keys) =>
             acc[e] ||
@@ -34,7 +36,7 @@ export class TrtDataDownloadComponent {
       }, {});
 
     this.store.subscribe((x) => {
-      var dataStr =
+      const dataStr =
         'data:text/json;charset=utf-8,' +
         encodeURIComponent(
           JSON.stringify(
@@ -49,7 +51,7 @@ export class TrtDataDownloadComponent {
             )
           )
         );
-      var dlAnchorElem = document.getElementById('downloadAnchorElem');
+      const dlAnchorElem = document.getElementById('downloadAnchorElem');
       dlAnchorElem?.setAttribute('href', dataStr);
       dlAnchorElem?.setAttribute('download', `${this.fileName}.json`);
     });

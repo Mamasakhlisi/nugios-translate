@@ -8,7 +8,7 @@ import { Component, Renderer2 } from '@angular/core';
 export class AppComponent {
   title = 'json-translate';
   constructor(private renderer: Renderer2) {}
-  darkMode: boolean = false;
+  darkMode = false;
 
   changeTheme() {
     this.darkMode = !this.darkMode;

@@ -46,7 +46,7 @@ export class TableDataService {
         .dispatch(
           new SetJsonData(this.sortedDataWithTable, createNew ? name : fileName)
         )
-        .subscribe((x) => (this.sortedDataWithTable = []));
+        .subscribe(() => (this.sortedDataWithTable = []));
       } catch {
         alert('Error: Invalid JSON Format')
         return false;
